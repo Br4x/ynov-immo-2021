@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:ynov_immo/pages/home/components/body.dart';
+import 'package:ynov_immo/pages/filters/components/app_bar_filters.dart';
+import 'package:ynov_immo/pages/filters/components/body_filters.dart';
+//import 'package:ynov_immo/pages/home/components/body.dart';
 
 class Filter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Filtres'),
-      ),
-      body: Body(),
-    );
+    return Scaffold(appBar: appBarFilters(context), body: BodyFilters());
   }
 }
