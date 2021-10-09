@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ynov_immo/constants.dart';
+import 'package:ynov_immo/pages/filters/filter-page.dart';
 import 'package:ynov_immo/pages/home/home-screen.dart';
-
 
 void main() => runApp(MyApp());
 
@@ -9,7 +9,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Ynov Immo',
@@ -22,6 +21,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: HomeScreen(),
+      routes: <String, WidgetBuilder>{
+        '/filters': (BuildContext context) => Filter(),
+      },
     );
   }
 }

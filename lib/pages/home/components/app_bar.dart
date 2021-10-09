@@ -1,3 +1,5 @@
+// ignore_for_file: missing_required_param
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ynov_immo/constants.dart';
@@ -9,7 +11,8 @@ AppBar homeAppBar(BuildContext context) {
     elevation: 1,
     leading: IconButton(
       icon: SvgPicture.asset("assets/icons/menu.svg"),
-      onPressed: () {},
+      onPressed: () => {Navigator.of(context).pushNamed('/filters')},
+      tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
     ),
     title: RichText(
       text: TextSpan(
