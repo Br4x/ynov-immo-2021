@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ynov_immo/constants.dart';
-import 'package:ynov_immo/pages/home/home-screen.dart';
+import 'package:ynov_immo/pages/login/login.dart';
 
 
 void main() => runApp(MyApp());
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(color: ksecondaryColor),
         ),
       ),
-      home: HomeScreen(),
+      home: Login(),
     );
   }
 }
