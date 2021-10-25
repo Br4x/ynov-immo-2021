@@ -34,21 +34,7 @@ class User {
 /* Longitude */
   String longitude;
   
-  User(
-    {
-      int    id,
-      String email,
-      String password,
-      String avatar,
-      String firstName,
-      String lastName,
-      String address,
-      String zipCode,
-      String city,
-      String latitude,
-      String longitude
-    }
-  ) {
+  User(int    id, String email, String password, String avatar, String firstName, String lastName, String address, String zipCode, String city, String latitude, String longitude) {
     this.id = id;
     this.email = email;
     this.password = password;
@@ -67,7 +53,7 @@ class User {
     return 'User[id=$id, email=$email, password=$password, avatar=$avatar, firstName=$firstName, lastName=$lastName, address=$address, zipCode=$zipCode, city=$city, latitude=$latitude, longitude=$longitude, ]';
   }
 
-  User.fromJson(Map<String, dynamic> json) {
+  User.fromJson(Map json) {
     if (json == null) return;
     id =
         json['id']
@@ -104,7 +90,7 @@ class User {
     ;
   }
 
-  Map<String, dynamic> toJson() {
+  Map toJson() {
     return {
       'id': id,
       'email': email,

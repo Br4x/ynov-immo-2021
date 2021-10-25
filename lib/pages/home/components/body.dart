@@ -10,7 +10,7 @@ class Body extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           CategoryList(),
-          ItemList(),
+          //ItemList(),
         ],
       ),
     );

@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ynov_immo/constants.dart';
-import 'package:ynov_immo/pages/login/login-screen.dart';
 
-AppBar homeAppBar(BuildContext context) {
+AppBar loginAppBar(BuildContext context) {
   return AppBar(
     centerTitle: true,
     backgroundColor: Colors.black54,
@@ -32,21 +30,21 @@ AppBar homeAppBar(BuildContext context) {
       ),
     ),
     actions: <Widget>[
-      IconButton(
-        icon: Icon(Icons.login),
+     /* IconButton(
+        icon: SvgPicture.asset("assets/icons/notification.svg"),
         onPressed: () {
 
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) {
-                return LoginScreen();
+                return DetailsScreen();
               },
             ),
           );
 
         },
-      ),
+      ),*/
     ],
 
   );
