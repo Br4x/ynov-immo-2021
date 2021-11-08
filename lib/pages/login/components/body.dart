@@ -1,23 +1,56 @@
-
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../../../api.dart';
+import 'package:confetti/confetti.dart';
 
 class Body extends StatefulWidget {
   @override
   _LoginFormState createState() => _LoginFormState();
-
-
 }
 
-class _LoginFormState extends State<Body>{
-
+class _LoginFormState extends State<Body> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  ConfettiController controllerTopCenter;
 
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      initController();
+    });
+  }
+
+  void initController() {
+    controllerTopCenter =
+        ConfettiController(duration: const Duration(microseconds: 1));
+  }
+
+  //confetti
+  Align buildConfettiWidget(controller, double blastDirection) {
+    return Align(
+      alignment: Alignment.topCenter,
+      child: ConfettiWidget(
+        maximumSize: Size(20, 20),
+        shouldLoop: false,
+        confettiController: controller,
+        blastDirection: blastDirection,
+        blastDirectionality: BlastDirectionality.directional,
+        maxBlastForce: 20,
+        // set a lower max blast force
+        minBlastForce: 10,
+        // set a lower min blast force
+        emissionFrequency: 1,
+        numberOfParticles: 5,
+        // a lot of particles at once
+        gravity: 0,
+      ),
+    );
+  }
 
   //Variable qui représente l'action de l'icone "petit oeil" du password
   bool _isHidden = true;
@@ -56,8 +89,6 @@ class _LoginFormState extends State<Body>{
       ),
     );
 
-
-
     // fonction permettant de voir ou de cacher le password
     void _togglePasswordView() {
       setState(() {
@@ -65,20 +96,18 @@ class _LoginFormState extends State<Body>{
       });
     }
 
-
     final password = TextFormField(
-      controller : passwordController,
+      controller: passwordController,
       autofocus: false,
       //initialValue: 'some password',
       obscureText: _isHidden,
       decoration: InputDecoration(
         hintText: 'Password',
-        suffix: InkWell(//Icone petit oeil
+        suffix: InkWell(
+          //Icone petit oeil
           onTap: _togglePasswordView,
           child: Icon(
-            _isHidden
-                ? Icons.visibility
-                : Icons.visibility_off,
+            _isHidden ? Icons.visibility : Icons.visibility_off,
           ),
         ),
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -91,9 +120,7 @@ class _LoginFormState extends State<Body>{
 //--------------------------------------------------------------------------------------------------------------------------
     //récupère les informations de la BDD via json
     Future<Map<String, dynamic>> getUsers() async {
-
-      final response = await http.get(
-          'http://10.33.16.55:8080/api/v1/user/',
+      final response = await http.get('http://10.33.16.55:8080/api/v1/user/',
           headers: {"Access-Control-Allow-Origin": "*"});
       if (response.statusCode == 200) {
         return await json.decode(response.body);
@@ -103,11 +130,10 @@ class _LoginFormState extends State<Body>{
     }
 
     //crée une liste avec touts les users
-    Future<List<User>> fetchUser() async{
+    Future<List<User>> fetchUser() async {
       List<User> users = [];
       getUsers();
       var response = await getUsers().then((response) {
-
         for (int i = 0; i < response.length; i++) {
           int id = response['data'][i.toString()]['id'];
           String email = response['data'][i.toString()]['email'];
@@ -120,11 +146,11 @@ class _LoginFormState extends State<Body>{
           String city = response['data'][i.toString()]['city'];
           String latitude = response['data'][i.toString()]['latitude'];
           String longitude = response['data'][i.toString()]['longitude'];
-          User user = new User(id, email, password, avatar, address, first_name, last_name, zip_code, city, latitude, longitude);
+          User user = new User(id, email, password, avatar, address, first_name,
+              last_name, zip_code, city, latitude, longitude);
           users.add(user);
-        };
-
-
+        }
+        ;
       });
       //print (users[0]);
       return users;
@@ -146,6 +172,16 @@ class _LoginFormState extends State<Body>{
               ),
             ),
             actions: <Widget>[
+              buildConfettiWidget(controllerTopCenter, 1),
+              buildConfettiWidget(controllerTopCenter, 2),
+              buildConfettiWidget(controllerTopCenter, 3),
+              buildConfettiWidget(controllerTopCenter, 4),
+              buildConfettiWidget(controllerTopCenter, 5),
+              buildConfettiWidget(controllerTopCenter, 6),
+              buildConfettiWidget(controllerTopCenter, 7),
+              buildConfettiWidget(controllerTopCenter, 8),
+              buildConfettiWidget(controllerTopCenter, 9),
+              buildConfettiWidget(controllerTopCenter, 10),
               TextButton(
                 child: Text('OK'),
                 onPressed: () {
@@ -154,12 +190,12 @@ class _LoginFormState extends State<Body>{
                   // TODO Rajouter le lien pour la page d'après
                 },
               ),
-
             ],
           );
         },
       );
     }
+
     //Pop Up si email ou mdp pas correcte
     Future<void> _popUpFailConnect() async {
       return showDialog<void>(
@@ -171,7 +207,8 @@ class _LoginFormState extends State<Body>{
             content: SingleChildScrollView(
               child: Column(
                 children: <Widget>[
-                  Text("Erreur d'email ou de mot de passe, veuillez réssayer !"),
+                  Text(
+                      "Erreur d'email ou de mot de passe, veuillez réssayer !"),
                 ],
               ),
             ),
@@ -183,7 +220,6 @@ class _LoginFormState extends State<Body>{
                   // TODO Rajouter le lien pour la page d'après
                 },
               ),
-
             ],
           );
         },
@@ -191,44 +227,38 @@ class _LoginFormState extends State<Body>{
     }
 
     final loginButton = Padding(
-
       padding: EdgeInsets.symmetric(vertical: 16.0),
-
       child: ElevatedButton(
-
-        style : ButtonStyle(
+        style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all(Colors.orange),
         ),
-
         onPressed: () async {
+          controllerTopCenter.play();
           List<User> users = await fetchUser();
 
           int isValid = 0;
 
-          for(int i =0 ; i<users.length ; i++){
-            if (users[i].email == emailController.text){
-              if(users[i].password == passwordController.text){
-                 isValid=1;
-                 break;
+          for (int i = 0; i < users.length; i++) {
+            if (users[i].email == emailController.text) {
+              if (users[i].password == passwordController.text) {
+                isValid = 1;
+                break;
               }
-            } else{
-              isValid=0;
+            } else {
+              isValid = 0;
             }
           }
-          if(isValid==1){
+          if (isValid == 1) {
+            controllerTopCenter.play();
             _popUpConnect();
-          }else{
+          } else {
             _popUpFailConnect();
           }
-
-
-
         },
         child: Text(
           "Log In",
           style: TextStyle(
             color: Colors.white,
-
           ),
         ),
       ),
@@ -254,5 +284,4 @@ class _LoginFormState extends State<Body>{
       ),
     );
   }
-  
 }
