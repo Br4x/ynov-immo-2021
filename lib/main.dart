@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ynov_immo/constants.dart';
 import 'package:ynov_immo/pages/home/home-screen.dart';
-
+import 'package:ynov_immo/pages/indications_proprio/indications-screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           bodyText2: TextStyle(color: ksecondaryColor),
         ),
       ),
-      home: HomeScreen(),
+      home: IndicationsScreen(),
     );
   }
 }

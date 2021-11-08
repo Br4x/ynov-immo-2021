@@ -28,7 +28,19 @@ class RealEstatePropalsBuyerIndication {
 /* veut une vente longue ? (+ de 6 mois) */
   int wantALongSell;
   
-  RealEstatePropalsBuyerIndication();
+  //RealEstatePropalsBuyerIndication();
+
+  RealEstatePropalsBuyerIndication(int id, int idPropal, int idBuyer, int idVendor, int hasTotalInCash, int hasFinancialSupport, int hasBigFinancialSupport, int hasVeryBigFinancialSupport, int wantALongSell){
+    this.id = id;
+    this.idPropal = idPropal;
+    this.idBuyer = idBuyer;
+    this.idVendor = idVendor;
+    this.hasTotalInCash = hasTotalInCash;
+    this.hasFinancialSupport = hasFinancialSupport;
+    this.hasBigFinancialSupport = hasBigFinancialSupport;
+    this.hasVeryBigFinancialSupport = hasVeryBigFinancialSupport;
+    this.wantALongSell = wantALongSell;
+  }
 
   @override
   String toString() {
