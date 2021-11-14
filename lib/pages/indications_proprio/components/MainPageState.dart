@@ -145,11 +145,6 @@ class _MainPageState extends State<MainPageState> {
           setState(() {
             checkBox.value = value;
             _onCategorySelected(checkBox.id, checkBox.value);
-            valueHasTotalInCash();
-            valueHasFinancialSupport();
-            valueHasBigFinancialSupport();
-            valueHasVeryBigFinancialSupport();
-            valueWantALongSell();
           });
         },
       );
@@ -173,7 +168,7 @@ class _MainPageState extends State<MainPageState> {
               child: Text('Oui'),
               onPressed: () {
                 print('Confirmed');
-                var body = new RealEstatePropalsBuyerIndication(7, 3, 2, 1, valueHasTotalInCash(), valueHasFinancialSupport(), valueHasBigFinancialSupport(), valueHasVeryBigFinancialSupport(), valueWantALongSell()); // RealEstatePropalsBuyerIndication | create real-estate-propals-buyer-indication
+                var body = new RealEstatePropalsBuyerIndication(1, 3, 2, 1, valueHasTotalInCash(), valueHasFinancialSupport(), valueHasBigFinancialSupport(), valueHasVeryBigFinancialSupport(), valueWantALongSell()); // RealEstatePropalsBuyerIndication | create real-estate-propals-buyer-indication
                 IndicationsController().sendData(body);
                 reset();
                 Navigator.of(context).pop();
